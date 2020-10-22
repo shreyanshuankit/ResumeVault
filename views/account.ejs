@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>My Account</h1>
+    <a href="/logout">logout</a>
+    <h3><%=user.name%></h3>
+    <h3><%=user.email%></h3>
+    <img src="<%=user.photo%>" />
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      upload Resume : <input type="file" name="upload" />
+      <input type="submit" />
+    </form>
+    <h5><%=message%></h5>
+    <%if(user.status){%>
+    <a href="/<%=user.email%>.pdf">My resume</a>
+    <a href="/delete">Delete Resume </a>
+    <%}%>
+  </body>
+</html>
