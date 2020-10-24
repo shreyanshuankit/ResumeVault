@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const session = require("express-session");
-const {  User } = require("../models/userModel");
+const {  User } = require("./models/userModel");
 const multer = require("multer");
 const flash = require('connect-flash');
 
