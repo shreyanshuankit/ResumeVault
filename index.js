@@ -209,6 +209,7 @@ app.get("/:id",(req,res)=>{
 });
 
 /*----server----*/
-app.listen(3000, () => {
+var port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("app is running on port 8000");
 });
