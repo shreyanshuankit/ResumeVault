@@ -114,7 +114,7 @@ app.use(passport.session());
 
 /*----Home Page----*/
 app.get("/", (req, res) => {
-  res.render("index2",{message:req.flash("info")});
+  res.render("index",{message:req.flash("info")});
 });
 
 /*----Google Auth----*/
