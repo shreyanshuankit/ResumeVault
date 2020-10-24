@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://murmuring-forest-14129.herokuapp.com/auth/google/account",
+      callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
