@@ -2919,12 +2919,13 @@
 /* Banner */
 
 	#banner {
-		padding: 14em 0 12em 0;
-		background-image: url(../images/banner.jpg);
+		padding: 8em 0 12em 0;
+		background-image: url(../images/3851290.png);
 		background-size: cover;
 		background-position: center top;
 		background-repeat: no-repeat;
 		text-align: center;
+
 	}
 
 		#banner .content {
@@ -3289,7 +3290,7 @@
 			display: flex;
 			-ms-flex-align: center;
 				align-items: center;
-			background: #d9daf1;
+			background: #e1e1e2;
 		  }
 		  
 		  .s130 form .inner-form .input-field.first-wrap input {
@@ -3333,7 +3334,7 @@
 		  }
 		  
 		  .s130 form .inner-form .input-field.second-wrap .btn-search:hover {
-			background: #009451;
+			background: #0d4dad;
 		  }
 		  
 		  .s130 form .inner-form .input-field.second-wrap .btn-search:focus {

@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const session = require("express-session");
-const {  User } = require("../models/userModel");
+const {  User } = require("./models/userModel");
 const multer = require("multer");
 const flash = require('connect-flash');
 
@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/account",
+      callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -114,7 +114,7 @@ app.use(passport.session());
 
 /*----Home Page----*/
 app.get("/", (req, res) => {
-  res.render("index2",{message:req.flash("info")});
+  res.render("index",{message:req.flash("info")});
 });
 
 /*----Google Auth----*/
@@ -209,6 +209,7 @@ app.get("/:id",(req,res)=>{
 });
 
 /*----server----*/
-app.listen(3000, () => {
+var port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log("app is running on port 8000");
 });
