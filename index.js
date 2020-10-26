@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
+      callbackURL: "/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -95,6 +95,7 @@ var upload = multer({ storage: storage,
 
 /*----some middleware----*/
 app.use(express.static("public"));
+app.use(express.static("uploads"));
 app.set("view engine", "ejs");
 app.use(
   bodyParser.urlencoded({
@@ -149,11 +150,11 @@ app.post("/upload",upload.single("upload"),(req,res)=>{
     found.status=true;
     await found.save();
     req.flash("info", "Resume uploaded successfully");
-    res.redirect("/account");
+    res.redirect("/profile");
   });
 },(error,req,res,next)=>{
   req.flash("info", error.message);
-  res.redirect("/account");
+  res.redirect("/profile");
 });
 
 /*----logout----*/
@@ -165,11 +166,14 @@ app.get("/logout", (req, res) => {
 
 /*----Find Resume using email----*/
 app.post("/findResume",(req,res)=>{
+  console.log(req.body.email+4545);
   User.findOne({email:req.body.email},(err,found)=>{
     if(found){
-      res.redirect(`/${found.email}.pdf`)
+      res.redirect(`/${found.email}.pdf`);
     }else{
-      req.flash("info","NOT found");
+      if(req.body.email){
+      req.flash("info","Not Found");
+      }
       res.redirect("/");
     }
   });
@@ -187,7 +191,7 @@ app.get("/delete",(req,res)=>{
         found.status=false;
         await found.save();
         req.flash("info","Resume deleted successfully!");
-        res.redirect("/account");
+        res.redirect("/profile");
       })
     });
   }else{
@@ -202,7 +206,7 @@ app.get("/:id",(req,res)=>{
     if(found){
       res.redirect(`/${found.email}.pdf`)
     }else{
-      req.flash("info","NOT found");
+      //req.flash("info","NOT found");
       res.redirect("/");
     }
   });
@@ -211,5 +215,5 @@ app.get("/:id",(req,res)=>{
 /*----server----*/
 var port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log("app is running on port 8000");
+  console.log(`app is running on port ${port}`);
 });
