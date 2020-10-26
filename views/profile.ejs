@@ -208,7 +208,7 @@
                       </a>
                     </div>
                   </div>
-                  <a href="/delete">Delete Resume </a>
+                  <button class="m-2 col-lg-2 btn btn-info" onclick="deleteResume()">Delete Resume </button>
                   <hr class="my-4" />
                   <%}%>
 
@@ -260,7 +260,6 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
                       >
                     </div>
                   </div>
-                
               </div>
             </div>
           </div>
@@ -269,11 +268,27 @@ A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea
     </div>
   </body>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
   <script>
-    if ("<%=message%>") {
-      console.log("<%=message%>");
-      swal("<%=message%>");
-    }
-  </script>
+    function deleteResume(){
+      swal({
+        title:"Are you sure to delete",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((value) => {
+        if(value){
+          $.get("/delete",(data)=>{
+            swal({title:data.message}).then(()=>{
+              location.reload();
+            });
+          });
+        }
+      });
+    }    
+</script>
 </html>

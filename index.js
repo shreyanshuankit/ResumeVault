@@ -166,15 +166,12 @@ app.get("/logout", (req, res) => {
 
 /*----Find Resume using email----*/
 app.post("/findResume",(req,res)=>{
-  console.log(req.body.email+4545);
+  console.log(req.body);
   User.findOne({email:req.body.email},(err,found)=>{
-    if(found){
-      res.redirect(`/${found.email}.pdf`);
+    if(found && found.status){
+      res.json({status:true});
     }else{
-      if(req.body.email){
-      req.flash("info","Not Found");
-      }
-      res.redirect("/");
+      res.json({status:false});
     }
   });
 });
@@ -190,12 +187,11 @@ app.get("/delete",(req,res)=>{
       User.findById(req.user.id,async(err,found)=>{
         found.status=false;
         await found.save();
-        req.flash("info","Resume deleted successfully!");
-        res.redirect("/profile");
+        res.json({message:"Resume Deleted Successfully"});
       })
     });
   }else{
-    res.redirect("/");
+    res.json({message:"Authentication Failed"});
   }
 });
 
@@ -206,8 +202,7 @@ app.get("/:id",(req,res)=>{
     if(found){
       res.redirect(`/${found.email}.pdf`)
     }else{
-      //req.flash("info","NOT found");
-      res.redirect("/");
+      res.send("Page Not Found");
     }
   });
 });
