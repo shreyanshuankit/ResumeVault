@@ -1,9 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
 
-  <script>
-    function myFunction() {
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title><%=user.name%></title>
+  <!-- Favicon -->
+  <!-- <link rel="icon" href="/assets/img/theme/team-4.jpg" type="image/png"> -->
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Search Icons -->
+  <link rel="stylesheet" href="/assets/vendor/nucleo/css/nucleo.css" type="text/css"> 
+  <!-- <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="/assets/css/argon.css?v=1.2.0" type="text/css">
+
+
+    <script>
+        function changeuser(val){
+            if (val == 0){
+                console.log(0);
+        document.getElementById("username").readOnly = false;
+        document.getElementById("changebtn").style.display = "none";
+        document.getElementById("savechnage").style.display = "inline";
+        
+    }
+
+        else{
+            console.log(1);
+        document.getElementById("username").readOnly = true;
+        document.getElementById("changebtn").style.display = "inline";
+        document.getElementById("savechnage").style.display = "none";
+        msgalert(0);}
+        
+        };
+    
+
+        function msgalert(val){
+            if (val==0){
+            document.getElementById("usernamesection").innerHTML=
+        "<div id='usernamesection' class='alert alert-success alert-dismissible fade show mt-3' role='alert'> <strong>username updated!</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"
+        $("#usernamesection").fadeTo(2000, 500).slideUp(500, function(){
+    $("#usernamesection").slideUp(500);
+});
+        }
+            else{
+                document.getElementById("usernamesection").innerHTML=
+        "<div id='usernamesection' class='alert alert-danger alert-dismissible fade show mt-3' role='alert'> <strong>Use different username</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"
+            
+            }
+        }
+
+
+        function myFunction() {
   /* Get the text field */
   var copyText = document.getElementById("myInput");
 
@@ -17,113 +69,111 @@
   /* Alert the copied text */
   alert("Link copied: " + copyText.value);
 }
-  </script>
+    </script>
 
-  <!-- <style>
-    .tooltip {
-  position: relative;
-  display: inline-block;
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -75px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-  </style>
-  -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=user.name%></title>
-    <link rel="stylesheet" href="/assets/css/account.css">
-    <script src="https://kit.fontawesome.com/e2723e486c.js" crossorigin="anonymous"></script>
+<style>
+    a .form-inline:link {
+     text-decoration: none;
+   }
+   
+    a .form-inline:visited {
+     text-decoration: none;
+   }
+     </style>
+     
 </head>
 <body>
-
-<div class="main-content">
-    <!-- Top navbar -->
-    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+  <!-- Sidenav -->
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <nav class="navbar navbar-top navbar-expand navbar-dark bg-default border-bottom">
       <div class="container-fluid">
-        <!-- Brand -->
-        <div class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"  target="_blank">Resume Vault</div>
-        <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
-        <!-- User -->
-        <ul class="navbar-nav align-items-center d-none d-md-flex">
-            <a class="nav-link  pr-0" href="/signout" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="<%=user.photo%>">
-                </span>
-                <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Sign out</span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Search form -->
+          <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
+            <div class="form-group mb-0">
+              <div class="input-group input-group-alternative input-group-merge">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
+                <input class="form-control" placeholder="Search" type="text">
               </div>
-            </a>
+            </div>
+            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </form>
+          <!-- Navbar links -->
+          <ul class="navbar-nav align-items-center  ml-md-auto ">
+            <li class="nav-item d-xl-none">
+              <!-- Sidenav toggler -->
+              <!-- <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </div> -->
+            </li>
+            <li class="nav-item d-sm-none">
+              <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                <i class="ni ni-zoom-split-in"></i>
+              </a>
+            </li>
             
-        </ul>
+            
+          </ul>
+          <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+            <li class="nav-item dropdown">
+              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="media align-items-center">
+                  <span class="avatar avatar-sm rounded-circle">
+                    <img alt="Image placeholder" src="<%=user.photo%>">
+                  </span>
+                  <div class="media-body  ml-2  d-none d-lg-block">
+                    <span class="mb-0 text-sm  font-weight-bold"><%=user.name%></span>
+                  </div>
+                </div>
+              </a>
+              <div class="dropdown-menu  dropdown-menu-right ">
+                <div class="dropdown-divider"></div>
+                <a href="#!" class="dropdown-item">
+                  <i class="ni ni-user-run"></i>
+                  <span>Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
-
-
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <!-- Header -->
+    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(/assets/images/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello<br> <%=user.name%></h1>
-            <p class="text-white mt-0 mb-5">This is your profile page. Here you can manage your profile  upload your resume and can gentatre a custom  link  </p>
+            <h1 class="display-2 text-white">Hello <%=user.name%></h1>
+            <p class="text-white mt-0 mb-5">This is your profile page. You can upload and modify your resume here!</p>
+            <!-- <a href="#!" class="btn btn-neutral">Edit profile</a> -->
           </div>
         </div>
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--6">
       <div class="row">
-        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-          <div class="card card-profile shadow">
+        <div class="col-xl-4 order-xl-2">
+          <div class="card card-profile">
+            <!-- <img src="/assets/images/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top"> -->
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image mb-5">
+                <div class="card-profile-image">
                   <a href="#">
                     <img src="<%=user.photo%>" class="rounded-circle">
                   </a>
@@ -132,70 +182,62 @@
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <!-- <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
+                <!-- <a href="#" class="btn btn-sm btn-info  mr-4 ">Connect</a>
                 <a href="#" class="btn btn-sm btn-default float-right">Message</a> -->
               </div>
             </div>
-            <div class="card-body pt-0 pt-md-4">
-              
-              <div class="text-center">
-                <h3>
-                  <%=user.name%>
-                </h3>
-                <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>B.Tech, IT
-                </div>
+            <div class="card-body pt-0">
+              <div class="row">
+              </div>
+              <div class="text-center mt-5" >
+                <h1><%=user.name%> </h1> 
+                <div class="d-flex justify-content-center" >
+               <input type="text" class="form-control col-4 text-center" placeholder="<%=user.name%>" id="username" readonly >
+               <button class="btn" id="changebtn" onclick="changeuser(0)"  style="display: inline;"><i class="fas fa-edit"></i></button>
+               <button class="btn" id="savechnage" onclick="changeuser(1)" style="display: none;"><i class="fas fa-save"></i></button>
+            </div>
+
+               <div id="usernamesection" >
                
-                <div>
-                  <i class="ni education_hat mr-2"></i>College Name, Address
-                </div>
+              </div>
                 
+            
               </div>
             </div>
           </div>
         </div>
         <div class="col-xl-8 order-xl-1">
-          <div class="card bg-secondary shadow">
-            <div class="card-header bg-white border-0">
+          <div class="card">
+            <div class="card-header">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">My account</h3>
+                  <h3 class="mb-0">Edit profile </h3>
                 </div>
                 <div class="col-4 text-right">
-                  <!-- <a href="#!" class="btn btn-sm btn-primary">Settings</a> -->
+                  <a href="#!" class="btn btn-sm btn-primary">Modify resume</a>
                 </div>
               </div>
             </div>
             <div class="card-body">
               <form>
-
-
-                <!-- Upload resume -->
+                   <!-- Upload resume -->
                 <h6 class="heading-small text-muted mb-4">Upload your resume</h6>
                 <div class="pl-lg-4">
-                  <!-- <div class="d-flex justify-content-center"> -->
-                  <form method="post" action="#" id="#">
-                    <div class="form-group files">
-                      <i class="fas fa-upload  fa-5x">
-                      <input type="file" id="hide" class="form-control" multiple="">
-                      </i>
-                    </div>
-                  </form>
-                <!-- </div> -->
-                </div>
+                  <div class="d-flex mb-5">
+                  <input type="file" class="col-6 mr-3" id="myfile" name="myfile">
+                  <button class="btn btn-info">Upload</button>
+                  </div>
+                  
                 <hr class="my-4">
-
-
+                <!-- upload resume end -->
+                
                 <!-- if there is resume -->
                 <h6 class="col-lg-2 heading-small text-muted mb-4">Your resume</h6>
-                <!-- The text field -->
                 <div class="pl-lg-4">
-                <div class="row mb-5">
-                <input type="text " class="mr-3 mb-2 col-lg-4 p-5 form-control" value="www.resumevault.com/shreyanshuankit" id="myInput" readonly>
-
-                <!-- The button used to copy the text -->
-                <button class="m-2 col-lg-2 btn btn-info" onclick="myFunction()">Copy Link</button>
-              </div>
+                <div class="d-flex mb-5">
+                <input type="text " class="col-6 form-control mr-2" value="www.resumevault.com/<%=user.name%>" id="myInput" readonly>
+                <button class="btn btn-info" onclick="myFunction()">Copy Link</button>
+                </div>
                 
                   <div class=" mb-4 d-flex justify-content-center">
                     <a href="www.google.com">
@@ -211,56 +253,9 @@
                   </div>
                 </div>
                 <hr class="my-4">
+                <button class="mt-5 btn btn-danger">Delete profile</button>
 
-
-
-
-                <h6 class="heading-small text-muted mb-4">User information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">Username</label>
-                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label class="form-control-label" for="input-email">Email address</label>
-                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">First name</label>
-                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="Lucky">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Last name</label>
-                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="Jesse">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                    <a href="#" class="btn btn-info">Edit profile</a>
-                 </div>
-                  </div>
-                </div>
-                <hr class="my-4">
-                
-                <!-- Description -->
-                <h6 class="heading-small text-muted mb-4">About me</h6>
-                <div class="pl-lg-4">
-                  <div class="form-group focused">
-                    <label>About Me</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                  </div>
-                </div>
+<!-- if reume is there section end -->
               </form>
             </div>
           </div>
@@ -268,7 +263,12 @@
       </div>
     </div>
   </div>
-  
+  <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="/assets/js/argon.js?v=1.2.0"></script>
 </body>
-</body>
+
 </html>
