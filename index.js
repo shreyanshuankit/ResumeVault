@@ -151,13 +151,13 @@ app.post("/username",(req,res)=>{
   if(req.isAuthenticated()){
     User.findOne({username:req.body.username},(err,found)=>{
       if(found)
-      res.json({status:false,message:"User already exists!"});
+      res.json({status:false,message:"Username already exists!"});
       else{
         User.findById(req.user.id,async(err,found)=>{
           if(found){
             found.username=req.body.username;
             await found.save();
-            res.json({status:false,message:req.body.username});
+            res.json({status:false,message:"Username changed"});
           }
         })
       }
