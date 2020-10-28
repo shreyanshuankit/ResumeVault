@@ -41,8 +41,7 @@
         function changeuser(val){
             if (val == 0){
               // after edit button is clicked
-        var username = document.getElementById("username").value;
-        updateUserName(username);
+       
         document.getElementById("username").readOnly = false;
         document.getElementById("changebtn").style.display = "none";
         document.getElementById("savechnage").style.display = "inline";
@@ -51,7 +50,8 @@
 
         else{
           // after save button is clicked
-        
+        var username = document.getElementById("username").value;
+        updateUserName(username);
         document.getElementById("username").readOnly = true;
         document.getElementById("changebtn").style.display = "inline";
         document.getElementById("savechnage").style.display = "none";
@@ -205,7 +205,7 @@
               <div class="text-center mt-5" >
                 <h1><%=user.name%> </h1> 
                 <div class="d-flex justify-content-center" >
-               <input type="text" class="form-control col-4 text-center" placeholder="<%=user.email%>" id="username" readonly >
+               <input type="text" class="form-control col-4 text-center" value="<%=user.username%>" id="username" readonly >
                <button class="btn" id="changebtn" onclick="changeuser(0)"  style="display: inline;"><i class="fas fa-edit"></i></button>
                <button class="btn" id="savechnage" onclick="changeuser(1)" style="display: none;"><i class="fas fa-save"></i></button>
             </div>
