@@ -15,7 +15,7 @@
       </nav>
       <a href="index.html" class="logo">Resume Vault</a>
       <nav class="right">
-        <a href="https://resumevault.herokuapp.com/auth/google" class="button alt">Log in</a>
+        <a href="/auth/google" class="button alt">Log in</a>
       </nav>
     </header>
 
@@ -25,7 +25,7 @@
 					<li><a href="index.html">About us</a></li>
 				</ul> -->
       <ul class="actions vertical">
-        <li><a href="https://resumevault.herokuapp.com/auth/google/account" class="button fit">Login</a></li>
+        <li><a href="/auth/google/account" class="button fit">Login</a></li>
       </ul>
     </nav>
 
@@ -35,7 +35,7 @@
       <div class="content">
         <h1>Find Resume</h1>
         <div class="s130">
-          <form>
+          <form id="search">
             <div class="inner-form">
               <div class="input-field first-wrap">
                 <div class="svg-wrapper">
@@ -45,10 +45,10 @@
                     ></path>
                   </svg>
                 </div>
-                <input id="search" type="text" placeholder="Find resume" />
+                <input name="email" type="text" placeholder="Find resume" />
               </div>
               <div class="input-field second-wrap">
-                <button class="btn-search" type="button">SEARCH</button>
+                <button class="btn-search" type="submit">SEARCH</button>
               </div>
             </div>
             <span class="info">ex. abc, abc@gmail.com</span>
@@ -168,5 +168,27 @@
     <script src="/assets/js/skel.min.js"></script>
     <script src="/assets/js/util.js"></script>
     <script src="/assets/js/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var form = document.querySelector("#search");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = e.target.elements.email.value;
+        data = { email: email };
+        $.post("/findResume", data, (data, status) => {
+          console.log(data);
+          if (data.status) {
+            window.location = `/${email}.pdf`;
+          } else {
+            swal({ title: "Not Found", icon: "error" });
+          }
+        });
+      });
+    </script>
   </body>
 </html>
