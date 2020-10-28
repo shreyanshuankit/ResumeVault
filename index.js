@@ -148,7 +148,6 @@ app.get("/profile", (req, res) => {
 
 // chnage username
 app.post("/username",(req,res)=>{
-  console.log("From indexjs"+req.body.username);
   if(req.isAuthenticated()){
     User.findOne({username:req.body.username},(err,found)=>{
       if(found)
@@ -158,7 +157,7 @@ app.post("/username",(req,res)=>{
           if(found){
             found.username=req.body.username;
             await found.save();
-            res.json({status:false,message:"username changed"});
+            res.json({status:false,message:req.body.username});
           }
         })
       }
