@@ -28,6 +28,7 @@
     username: username
   },
   function(data, status){
+    console.log(data, status);
     if(status){
       document.getElementById("username").value = username;
       msgalert(0);
