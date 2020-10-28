@@ -146,6 +146,25 @@ app.get("/profile", (req, res) => {
     }
 });
 
+// chnage username
+app.post("/username",(req,res)=>{
+  if(req.isAuthenticated()){
+    User.findOne({username:req.body.username},(err,found)=>{
+      if(found)
+      res.json({status:false,message:"User already exists!"});
+      else{
+        User.findById(req.user.id,async(err,found)=>{
+          if(found){
+            found.username=req.body.username;
+            await found.save();
+            res.json({status:false,message:"username changed"});
+          }
+        })
+      }
+    })
+  }
+});
+
 /*----Upload Resume----*/
 app.post("/upload",upload.single("upload"),(req,res)=>{
   User.findById(req.user.id,async(err,found)=>{
@@ -210,5 +229,5 @@ app.get("/:id",(req,res)=>{
 /*----server----*/
 var port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log("app is running on port 8000");
+  console.log("app is running on port 3000");
 });

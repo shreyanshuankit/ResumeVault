@@ -55,7 +55,7 @@
         document.getElementById("username").readOnly = true;
         document.getElementById("changebtn").style.display = "inline";
         document.getElementById("savechnage").style.display = "none";
-        msgalert(0);}
+        }
         
         };
     
@@ -71,7 +71,8 @@
             else{
                 document.getElementById("usernamesection").innerHTML=
         "<div id='usernamesection' class='alert alert-danger alert-dismissible fade show mt-3' role='alert'> <strong>Use different username</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"
-            
+        $("#usernamesection").fadeTo(2000, 500).slideUp(500, function(){
+    $("#usernamesection").slideUp(500);
             }
         }
 
