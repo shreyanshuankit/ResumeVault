@@ -234,6 +234,7 @@
             <div class="card-body">
               
                    <!-- Upload resume -->
+                   <%if(!user.status){%>
                 <h6 class="heading-small text-muted mb-4">Upload your resume</h6>
                 <div class="pl-lg-4">
                 <form id="fileUploadForm"> 
@@ -243,6 +244,7 @@
                   </div>
                 </form> 
                 <hr class="my-4">
+                <%}%>
                 <!-- upload resume end -->
                 
                 <!-- if there is resume -->
