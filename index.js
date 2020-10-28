@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
+      callbackURL: "/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -56,7 +56,7 @@ passport.deserializeUser(function(id, done) {
 /*----Storage Options----*/
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, '/uploads/')
   },
   filename: function (req, file, cb) {
     if(req.isAuthenticated()){
