@@ -77,7 +77,7 @@ var upload = multer({
      cb(undefined,true);
   },
   limits:{
-        fileSize: 100000
+        fileSize: 1000000
       }
  });
 
