@@ -32,7 +32,8 @@ passport.use(
           googleId: profile.id,
           name: profile.displayName,
           photo: profile._json.picture,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          username:profile.emails[0].value
         },
         function (err, user) {
           return cb(err, user);
@@ -142,6 +143,24 @@ app.get("/profile", (req, res) => {
     }else{
       res.redirect("/");
     }
+});
+
+app.post("/username",(req,res)=>{
+  if(req.isAuthenticated()){
+    User.findOne({username:req.body.username},(err,found)=>{
+      if(found)
+      res.json({status:false,message:"User already exists!"});
+      else{
+        User.findById(req.user.id,async(err,found)=>{
+          if(found){
+            found.username=req.body.username;
+            await found.save();
+            res.json({status:false,message:"username changed"});
+          }
+        })
+      }
+    })
+  }
 });
 
 /*----Upload Resume----*/
