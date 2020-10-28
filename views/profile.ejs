@@ -184,7 +184,7 @@
               <div class="text-center mt-5" >
                 <h1><%=user.name%> </h1> 
                 <div class="d-flex justify-content-center" >
-               <input type="text" class="form-control col-4 text-center" placeholder="<%=user.name%>" id="username" readonly >
+               <input type="text" class="form-control col-4 text-center" placeholder="<%=user.email%>" id="username" readonly >
                <button class="btn" id="changebtn" onclick="changeuser(0)"  style="display: inline;"><i class="fas fa-edit"></i></button>
                <button class="btn" id="savechnage" onclick="changeuser(1)" style="display: none;"><i class="fas fa-save"></i></button>
             </div>
@@ -211,28 +211,30 @@
               </div>
             </div>
             <div class="card-body">
-              <form>
+              
                    <!-- Upload resume -->
                 <h6 class="heading-small text-muted mb-4">Upload your resume</h6>
                 <div class="pl-lg-4">
+                <form id="fileUploadForm"> 
                   <div class="d-flex mb-5">
-                  <input type="file" class="col-6 mr-3" id="myfile" name="myfile">
-                  <button class="btn btn-info">Upload</button>
+                  <input type="file" class="col-6 mr-3" id="myfile" name="upload" required>
+                  <button class="btn btn-info" type="submit">Upload</button>
                   </div>
-                  
+                </form> 
                 <hr class="my-4">
                 <!-- upload resume end -->
                 
                 <!-- if there is resume -->
+                <%if(user.status){%>
                 <h6 class="col-lg-2 heading-small text-muted mb-4">Your resume</h6>
                 <div class="pl-lg-4">
                 <div class="d-flex mb-5">
-                <input type="text " class="col-6 form-control mr-2" value="www.resumevault.com/<%=user.name%>" id="myInput" readonly>
+                <input type="text " class="col-6 form-control mr-2" value="www.resumevault.com/<%=user.email%>" id="myInput" readonly>
                 <button class="btn btn-info" onclick="myFunction()">Copy Link</button>
                 </div>
                 
                   <div class=" mb-4 d-flex justify-content-center form-inline">
-                    <a href="www.google.com">
+                    <a href="/<%=user.email%>">
                     <div>
                       <div class="mb-4 d-flex justify-content-center">
                       <i class="row fas fa-file-pdf fa-7x"></i>
@@ -243,12 +245,14 @@
                   </div>
                 </a>
                   </div>
+                  <button onclick="deleteResume()" class="mt-5 btn btn-danger">Delete Resume</button>
                 </div>
                 <hr class="my-4">
+                <%}%>
                 <button class="mt-5 btn btn-danger">Delete profile</button>
-
+                
 <!-- if reume is there section end -->
-              </form>
+              
             </div>
           </div>
         </div>
@@ -261,6 +265,59 @@
   <script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
   <script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
   <script src="/assets/js/argon.js?v=1.2.0"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+  <script>
+
+    function deleteResume(){
+      swal({
+        title:"Are you sure to delete",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((value) => {
+        console.log(value);
+        if(value){
+          $.get("/delete",(data)=>{
+            swal({title:data.message}).then(()=>{
+              location.reload();
+            });
+          });
+        }
+      });
+    }  
+    
+    var form = document.querySelector("#fileUploadForm");
+    form.addEventListener("submit",(e)=>{
+      e.preventDefault();
+      form=$("#fileUploadForm")[0];
+      data=new FormData(form);
+      $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/upload",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+              if(data.upload){
+                swal({title:"Resume Uploaded successFully",icon:"success"}).then(()=>{
+                  location.reload();
+                });
+              }
+              else
+                swal({title:data.error,icon:"error"});
+              }
+        });
+    });
+   
+</script>
 </body>
 
 </html>
