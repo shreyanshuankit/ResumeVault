@@ -20,9 +20,29 @@
 
 
     <script>
+
+    // chnage username
+    function updateUserName(username){
+  $.post("/username",
+  {
+    username: username
+  },
+  function(data, status){
+    if(status){
+      document.getElementById("username").placeholder = username;
+      msgalert(0);
+    }
+    else{
+      msgalert(1);
+    }
+  });
+};
+
         function changeuser(val){
             if (val == 0){
-                console.log(0);
+              // after edit button is clicked
+        var username = document.getElementById("username").value;
+        updateUserName(username);
         document.getElementById("username").readOnly = false;
         document.getElementById("changebtn").style.display = "none";
         document.getElementById("savechnage").style.display = "inline";
@@ -30,7 +50,8 @@
     }
 
         else{
-            console.log(1);
+          // after save button is clicked
+        
         document.getElementById("username").readOnly = true;
         document.getElementById("changebtn").style.display = "inline";
         document.getElementById("savechnage").style.display = "none";
