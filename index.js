@@ -56,7 +56,7 @@ passport.deserializeUser(function(id, done) {
 /*----Storage Options----*/
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/uploads/')
+    cb(null, __dirname+'/uploads/')
   },
   filename: function (req, file, cb) {
     if(req.isAuthenticated()){
@@ -66,7 +66,9 @@ var storage = multer.diskStorage({
 })
 
 /*---Upload limits and File type */
-var upload = multer({ storage: storage,
+var upload = multer({ 
+  //dest:"resume",
+  storage: storage,
   fileFilter(req,file,cb){
     if(!file.originalname.endsWith('.pdf')){
       return cb(new Error('File must be a pdf'))
