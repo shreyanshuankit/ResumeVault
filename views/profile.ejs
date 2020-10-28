@@ -27,7 +27,7 @@
   {
     username: username
   },
-  function(data, status){
+  function("this is data:"+data+ "this is status"+status){
     console.log(data, status);
     if(status){
       document.getElementById("username").value = username;

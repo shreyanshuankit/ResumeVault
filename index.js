@@ -148,6 +148,7 @@ app.get("/profile", (req, res) => {
 
 // chnage username
 app.post("/username",(req,res)=>{
+  console.log("From indexjs"+req.body.username);
   if(req.isAuthenticated()){
     User.findOne({username:req.body.username},(err,found)=>{
       if(found)
