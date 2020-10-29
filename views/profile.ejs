@@ -23,20 +23,35 @@
 
     // chnage username
     function updateUserName(username){
-  $.post("/username",
-  {
-    username: username
-  },
-  function(data, status){
-    console.log("this is data:"+data+"\nthis is status"+status);
-    if(status){
-      document.getElementById("username").value = username;
-      msgalert(0);
-    }
-    else{
-      msgalert(1);
-    }
-  });
+  
+    // console.log("this is data:"+data+"\nthis is status"+status);
+    // if(status){
+    //   document.getElementById("username").value = username;
+    //   msgalert(0);
+    // }
+    // else{
+    //   msgalert(1);
+    // }
+    // const email = e.target.elements.email.value;
+        data = { username: username };
+        $.post("/username", data, (data, status) => {
+          console.log(data);
+          if (data.status) {
+            document.getElementById("username").value = username;
+            swal({ title: "Success",
+                  text: "Username updated",
+                  icon: "success",
+                  button: "OK", });
+          } else {
+            swal({ title: "Can't update",
+            text: "Try using different username",
+            icon: "error" });
+          }
+        });
+
+
+
+  
 };
 
         function changeuser(val){

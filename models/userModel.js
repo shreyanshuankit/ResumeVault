@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
   photo: String,
   googleId: String,
   email: String,
-  status:Boolean
+  status:Boolean,
+  username:String
 });
 
 userSchema.plugin(findOrCreate);

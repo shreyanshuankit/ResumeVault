@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
+      callbackURL: "/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -32,7 +32,8 @@ passport.use(
           googleId: profile.id,
           name: profile.displayName,
           photo: profile._json.picture,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          username:profile.emails[0].value
         },
         function (err, user) {
           return cb(err, user);
@@ -148,6 +149,7 @@ app.get("/profile", (req, res) => {
 
 // chnage username
 app.post("/username",(req,res)=>{
+  console.log("In index.js and username is "+ req.body.username);
   if(req.isAuthenticated()){
     User.findOne({username:req.body.username},(err,found)=>{
       if(found)
@@ -157,7 +159,7 @@ app.post("/username",(req,res)=>{
           if(found){
             found.username=req.body.username;
             await found.save();
-            res.json({status:false,message:"Username changed"});
+            res.json({status:true,message:"Username changed"});
           }
         })
       }
