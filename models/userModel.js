@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   photo: String,
   googleId: String,
   email: String,
-  status:Boolean,
+  status:{type:Boolean,default:false},
   username:String
 });
 

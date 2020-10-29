@@ -25,20 +25,30 @@ passport.use(
       callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
-    function (accessToken, refreshToken, profile, cb) {
-      //console.log(profile);
-      User.findOrCreate(
-        {
-          googleId: profile.id,
-          name: profile.displayName,
-          photo: profile._json.picture,
-          email: profile.emails[0].value,
-          username:profile.emails[0].value
-        },
-        function (err, user) {
-          return cb(err, user);
+    function(accessToken, refreshToken, profile, done) {
+      //check user table for anyone with a facebook ID of profile.id
+      User.findOne({ googleId: profile.id }, function(err, user) {
+        if (err) {
+          return done(err);
         }
-      );
+        //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+        if (!user) {
+          user = new User({
+            googleId: profile.id,
+            name: profile.displayName,
+            photo: profile._json.picture,
+            email: profile.emails[0].value,
+            username:profile.emails[0].value
+          });
+          user.save(function(err) {
+            if (err) console.log(err);
+            return done(err, user);
+          });
+        } else {
+          //found user. Return
+          return done(err, user);
+        }
+      });
     }
   )
 );
@@ -118,7 +128,11 @@ app.use(passport.session());
 
 /*----Home Page----*/
 app.get("/", (req, res) => {
-  res.render("index",{message:req.flash("info")});
+  if(req.isAuthenticated()){
+    res.redirect("/profile");
+  }else{
+    res.render("index");
+  }
 });
 
 /*----Google Auth----*/
@@ -141,7 +155,7 @@ app.get(
 app.get("/profile", (req, res) => {
     if(req.isAuthenticated()){
       //console.log(req.user);
-      res.render("profile",{user:req.user,message:req.flash("info")});
+      res.render("profile",{user:req.user});
     }else{
       res.redirect("/");
     }
@@ -219,7 +233,7 @@ app.get("/delete",(req,res)=>{
 /*----Find Resume using url----*/
 app.get("/:id",(req,res)=>{
   console.log(req.params.id);
-  User.findOne({email:req.params.id},(err,found)=>{
+  User.findOne({$or:[{email:req.params.id},{username:req.params.id}]},(err,found)=>{
     if(found){
       res.redirect(`/${found.email}.pdf`)
     }else{
