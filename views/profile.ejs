@@ -386,8 +386,11 @@
               </div>
               <div class="card-body">
                 <!-- Upload resume -->
-                <div id="upload" <%if(user.status){%>
+                <%if(user.status){%>
+                <div id="upload" 
                   style="display: none" ><%}%>
+                  <%if(!user.status){%>
+                  <div id="upload"><%}%>
                   <h6 class="heading-small text-muted mb-4">
                     Upload your resume
                   </h6>
