@@ -1,364 +1,518 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-  <meta name="author" content="Creative Tim">
-  <title><%=user.name%></title>
-  <!-- Favicon -->
-  <!-- <link rel="icon" href="/assets/img/theme/team-4.jpg" type="image/png"> -->
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Search Icons -->
-  <link rel="stylesheet" href="/assets/vendor/nucleo/css/nucleo.css" type="text/css"> 
-  <!-- <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css"> -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="/assets/css/argon.css?v=1.2.0" type="text/css">
-
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="Start your development with a Dashboard for Bootstrap 4."
+    />
+    <meta name="author" content="Creative Tim" />
+    <title><%=user.name%></title>
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="/assets/img/theme/team-4.jpg" type="image/png"> -->
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+    />
+    <!-- Search Icons -->
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/nucleo/css/nucleo.css"
+      type="text/css"
+    />
+    <!-- <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css"> -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+      crossorigin="anonymous"
+    />
+    <!-- Argon CSS -->
+    <link
+      rel="stylesheet"
+      href="/assets/css/argon.css?v=1.2.0"
+      type="text/css"
+    />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
     <script>
-
-    // chnage username
-    function updateUserName(username){
-  
-    // console.log("this is data:"+data+"\nthis is status"+status);
-    // if(status){
-    //   document.getElementById("username").value = username;
-    //   msgalert(0);
-    // }
-    // else{
-    //   msgalert(1);
-    // }
-    // const email = e.target.elements.email.value;
+      // chnage username
+      function updateUserName(username) {
+        // console.log("this is data:"+data+"\nthis is status"+status);
+        // if(status){
+        //   document.getElementById("username").value = username;
+        //   msgalert(0);
+        // }
+        // else{
+        //   msgalert(1);
+        // }
+        // const email = e.target.elements.email.value;
         data = { username: username };
         $.post("/username", data, (data, status) => {
           console.log(data);
           if (data.status) {
             document.getElementById("username").value = username;
-            swal({ title: "Success",
-                  text: "Username updated",
-                  icon: "success",
-                  button: "OK", });
+            swal({
+              title: "Success",
+              text: "Username updated",
+              icon: "success",
+              button: "OK",
+            });
           } else {
-            swal({ title: "Can't update",
-            text: "Try using different username",
-            icon: "error" });
+            swal({
+              title: "Can't update",
+              text: "Try using different username",
+              icon: "error",
+            });
           }
         });
+      }
 
+      function changeuser(val) {
+        if (val == 0) {
+          // after edit button is clicked
 
-
-  
-};
-
-        function changeuser(val){
-            if (val == 0){
-              // after edit button is clicked
-       
-        document.getElementById("username").readOnly = false;
-        document.getElementById("changebtn").style.display = "none";
-        document.getElementById("savechnage").style.display = "inline";
-        
-    }
-
-        else{
+          document.getElementById("username").readOnly = false;
+          document.getElementById("changebtn").style.display = "none";
+          document.getElementById("savechnage").style.display = "inline";
+        } else {
           // after save button is clicked
-        var username = document.getElementById("username").value;
-        updateUserName(username);
-        document.getElementById("username").readOnly = true;
-        document.getElementById("changebtn").style.display = "inline";
-        document.getElementById("savechnage").style.display = "none";
+          var username = document.getElementById("username").value;
+          updateUserName(username);
+          document.getElementById("username").readOnly = true;
+          document.getElementById("changebtn").style.display = "inline";
+          document.getElementById("savechnage").style.display = "none";
         }
-        
-        };
-    
+      }
 
-        function msgalert(val){
-            if (val==0){
-            document.getElementById("usernamesection").innerHTML=
-        "<div id='usernamesection' class='alert alert-success alert-dismissible fade show mt-3' role='alert'> <strong>username updated!</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"
-        $("#usernamesection").fadeTo(2000, 500).slideUp(500, function(){
-    $("#usernamesection").slideUp(500);
-});
+      function msgalert(val) {
+        if (val == 0) {
+          document.getElementById("usernamesection").innerHTML =
+            "<div id='usernamesection' class='alert alert-success alert-dismissible fade show mt-3' role='alert'> <strong>username updated!</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $("#usernamesection")
+            .fadeTo(2000, 500)
+            .slideUp(500, function () {
+              $("#usernamesection").slideUp(500);
+            });
+        } else {
+          document.getElementById("usernamesection").innerHTML =
+            "<div id='usernamesection' class='alert alert-danger alert-dismissible fade show mt-3' role='alert'> <strong>Use different username</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $("#usernamesection")
+            .fadeTo(2000, 500)
+            .slideUp(500, function () {
+              $("#usernamesection").slideUp(500);
+            });
         }
-            else{
-                document.getElementById("usernamesection").innerHTML=
-        "<div id='usernamesection' class='alert alert-danger alert-dismissible fade show mt-3' role='alert'> <strong>Use different username</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>"
-        $("#usernamesection").fadeTo(2000, 500).slideUp(500, function(){
-    $("#usernamesection").slideUp(500);
-});
+      }
+
+      function myFunction() {
+        /* Get the text field */
+        var copyText = document.getElementById("myInput");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+
+        swal({
+          title: "Success",
+          text: "Link copied",
+          icon: "success",
+          button: "OK",
+        });
+      }
+      $(document).ready(function () {
+        $("#modify").click(function () {
+          $("#upload").toggle("slow");
+        });
+      });
+      $(document).ready(function () {
+        $("#settings").click(function () {
+          $("#deleteButton").toggle();
+          $("html, body").animate(
+            {
+              scrollTop: $("#deleteButton").offset().top,
+            },
+            2000
+          );
+        });
+        $("#deleteButton").click(function () {
+          swal({
+            title: "Are you sure?",
+            text:
+              "You will not be able to recover and no one can acess your resume using your link!",
+            icon: "warning",
+            buttons: ["No, cancel it!", "Yes, I am sure!"],
+            dangerMode: true,
+          }).then(function (isConfirm) {
+            if (isConfirm) {
+              swal({
+                title: "Bye Bye",
+                text: "Hope to see you soon",
+                icon: "warning",
+              }).then(function () {
+                form.submit();
+              });
+            } else {
+              swal("Good", "Your resume is safe", "success");
             }
-        }
-
-
-        function myFunction() {
-  /* Get the text field */
-  var copyText = document.getElementById("myInput");
-
-  /* Select the text field */
-  copyText.select();
-  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-  /* Copy the text inside the text field */
-  document.execCommand("copy");
-
-  /* Alert the copied text */
-  alert("Link copied: " + copyText.value);
-}
+          });
+        });
+      });
     </script>
 
+    <style>
+      a .form-inline:link {
+        text-decoration: none;
+      }
 
-<style>
-    a .form-inline:link {
-     text-decoration: none;
-   }
-   
-    a .form-inline:visited {
-     text-decoration: none;
-   }
-     </style>
-     
-</head>
-<body>
-  <!-- Sidenav -->
-  <!-- Main content -->
-  <div class="main-content" id="panel">
-    <!-- Topnav -->
-    <nav class="navbar navbar-top navbar-expand navbar-dark bg-default border-bottom">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Search form -->
-          <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
-            <div class="form-group mb-0">
-              <div class="input-group input-group-alternative input-group-merge">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
-                </div>
-                <input class="form-control" placeholder="Search" type="text">
-              </div>
-            </div>
-            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </form>
-          <!-- Navbar links -->
-          <ul class="navbar-nav align-items-center  ml-md-auto ">
-            <li class="nav-item d-xl-none">
-            </li>
-            <li class="nav-item d-sm-none">
-              <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                <i class="ni ni-zoom-split-in"></i>
-              </a>
-            </li>
-            
-            
-          </ul>
-          <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
-            <li class="nav-item dropdown">
-              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="media align-items-center">
-                  <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="<%=user.photo%>">
-                  </span>
-                  <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold"><%=user.name%></span>
+      a .form-inline:visited {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidenav -->
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+      <!-- Topnav -->
+      <nav
+        class="navbar navbar-top navbar-expand navbar-dark bg-default border-bottom"
+      >
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Search form -->
+            <form
+              class="navbar-search navbar-search-light form-inline mr-sm-3"
+              id="navbar-search-main"
+            >
+              <div class="form-group mb-0">
+                <div
+                  class="input-group input-group-alternative input-group-merge"
+                >
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="fas fa-search"></i
+                    ></span>
                   </div>
+                  <input
+                    class="form-control"
+                    placeholder="Search"
+                    type="text"
+                  />
                 </div>
-              </a>
-              <div class="dropdown-menu  dropdown-menu-right ">
-                <div class="dropdown-divider"></div>
-                <a href="/logout" class="dropdown-item">
-                  <i class="ni ni-user-run"></i>
-                  <span>Logout</span>
-                </a>
               </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- Header -->
-    <!-- Header -->
-    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url(/assets/images/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
-      <!-- Mask -->
-      <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
-      <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello <%=user.name%></h1>
-            <p class="text-white mt-0 mb-5">This is your profile page. You can upload and modify your resume here!</p>
-            <!-- <a href="#!" class="btn btn-neutral">Edit profile</a> -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Page content -->
-    <div class="container-fluid mt--6">
-      <div class="row">
-        <div class="col-xl-4 order-xl-2">
-          <div class="card card-profile">
-            <!-- <img src="/assets/images/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top"> -->
-            <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image">
-                  <a href="#">
-                    <img src="<%=user.photo%>" class="rounded-circle">
+              <button
+                type="button"
+                class="close"
+                data-action="search-close"
+                data-target="#navbar-search-main"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </form>
+            <!-- Navbar links -->
+            <ul class="navbar-nav align-items-center ml-md-auto">
+              <li class="nav-item d-xl-none"></li>
+              <li class="nav-item d-sm-none">
+                <a
+                  class="nav-link"
+                  href="#"
+                  data-action="search-show"
+                  data-target="#navbar-search-main"
+                >
+                  <i class="ni ni-zoom-split-in"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link pr-0"
+                  href="#"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <div class="media align-items-center">
+                    <span class="avatar avatar-sm rounded-circle">
+                      <img alt="Image placeholder" src="<%=user.photo%>" />
+                    </span>
+                    <div class="media-body ml-2 d-none d-lg-block">
+                      <span class="mb-0 text-sm font-weight-bold"
+                        ><%=user.name%></span
+                      >
+                    </div>
+                  </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="/logout" class="dropdown-item">
+                    <i class="ni ni-user-run"></i>
+                    <span>Logout</span>
+                  </a>
+                  <a id="settings" class="dropdown-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
                   </a>
                 </div>
-              </div>
-            </div>
-            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-              <div class="d-flex justify-content-between">
-                <!-- <a href="#" class="btn btn-sm btn-info  mr-4 ">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a> -->
-              </div>
-            </div>
-            <div class="card-body pt-0">
-              <div class="row">
-              </div>
-              <div class="text-center mt-5" >
-                <h1><%=user.name%> </h1> 
-                <div class="d-flex justify-content-center" >
-               <input type="text" class="form-control col-4 text-center" value="<%=user.username%>" placeholder="username" id="username" readonly >
-               <button class="btn" id="changebtn" onclick="changeuser(0)"  style="display: inline;"><i class="fas fa-edit"></i></button>
-               <button class="btn" id="savechnage" onclick="changeuser(1)" style="display: none;"><i class="fas fa-save"></i></button>
-            </div>
-
-               <div id="usernamesection" >
-               
-              </div>
-                
-            
-              </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Header -->
+      <!-- Header -->
+      <div
+        class="header pb-6 d-flex align-items-center"
+        style="
+          min-height: 500px;
+          background-image: url(/assets/images/theme/profile-cover.jpg);
+          background-size: cover;
+          background-position: center top;
+        "
+      >
+        <!-- Mask -->
+        <span class="mask bg-gradient-default opacity-8"></span>
+        <!-- Header container -->
+        <div class="container-fluid d-flex align-items-center">
+          <div class="row">
+            <div class="col-lg-7 col-md-10">
+              <h1 class="display-2 text-white">Hello <%=user.name%></h1>
+              <p class="text-white mt-0 mb-5">
+                This is your profile page. You can upload and modify your resume
+                here!
+              </p>
+              <!-- <a href="#!" class="btn btn-neutral">Edit profile</a> -->
             </div>
           </div>
         </div>
-        <div class="col-xl-8 order-xl-1">
-          <div class="card">
-            <div class="card-header">
-              <div class="row align-items-center">
-                <div class="col-8">
-                  <h3 class="mb-0">Edit profile </h3>
+      </div>
+      <!-- Page content -->
+      <div class="container-fluid mt--6">
+        <div class="row">
+          <div class="col-xl-4 order-xl-2">
+            <div class="card card-profile">
+              <!-- <img src="/assets/images/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top"> -->
+              <div class="row justify-content-center">
+                <div class="col-lg-3 order-lg-2">
+                  <div class="card-profile-image">
+                    <a href="#">
+                      <img src="<%=user.photo%>" class="rounded-circle" />
+                    </a>
+                  </div>
                 </div>
-                <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Modify resume</a>
+              </div>
+              <div
+                class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4"
+              >
+                <div class="d-flex justify-content-between">
+                  <!-- <a href="#" class="btn btn-sm btn-info  mr-4 ">Connect</a>
+                <a href="#" class="btn btn-sm btn-default float-right">Message</a> -->
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <div class="row"></div>
+                <div class="text-center mt-5">
+                  <h1><%=user.name%></h1>
+                  <div class="d-flex justify-content-center">
+                    <input
+                      type="text"
+                      class="form-control col-4 text-center"
+                      value="<%=user.username%>"
+                      placeholder="username"
+                      id="username"
+                      readonly
+                    />
+                    <button
+                      class="btn"
+                      id="changebtn"
+                      onclick="changeuser(0)"
+                      style="display: inline"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="btn"
+                      id="savechnage"
+                      onclick="changeuser(1)"
+                      style="display: none"
+                    >
+                      <i class="fas fa-save"></i>
+                    </button>
+                  </div>
+                  <hr class="my-4" />
+
+                  <button
+                    id="deleteButton"
+                    style="display: none"
+                    class="mt-5 btn btn-danger"
+                  >
+                    Delete profile
+                  </button>
                 </div>
               </div>
             </div>
-            <div class="card-body">
-              
-                   <!-- Upload resume -->
-                   <%if(!user.status){%>
-                <h6 class="heading-small text-muted mb-4">Upload your resume</h6>
-                <div class="pl-lg-4">
-                <form id="fileUploadForm"> 
-                  <div class="d-flex mb-5">
-                  <input type="file" class="col-6 mr-3" id="myfile" name="upload" required>
-                  <button class="btn btn-info" type="submit">Upload</button>
+          </div>
+          <div class="col-xl-8 order-xl-1">
+            <div class="card">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <div class="col-8">
+                    <h3 class="mb-0">Edit profile</h3>
                   </div>
-                </form> 
-                <hr class="my-4">
-                <%}%>
+                  <%if(user.status){%>
+                  <div class="col-4 text-right">
+                    <a href="#!" class="btn btn-sm btn-primary" id="modify"
+                      >Modify resume</a
+                    >
+                  </div>
+                  <%}%>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- Upload resume -->
+                <div id="upload" <%if(user.status){%>
+                  style="display: none" ><%}%>
+                  <h6 class="heading-small text-muted mb-4">
+                    Upload your resume
+                  </h6>
+                  <div class="pl-lg-4">
+                    <form id="fileUploadForm">
+                      <div class="d-flex mb-5">
+                        <input
+                          type="file"
+                          class="col-6 mr-3"
+                          id="myfile"
+                          name="upload"
+                          required
+                        />
+                        <button class="btn btn-info" type="submit">
+                          Upload
+                        </button>
+                      </div>
+                    </form>
+                    <button
+                      onclick="deleteResume()"
+                      class="mt-5 btn btn-danger"
+                    >
+                      Delete Resume
+                    </button>
+                    <hr class="my-4" />
+                  </div>
+                </div>
+
                 <!-- upload resume end -->
-                
+
                 <!-- if there is resume -->
                 <%if(user.status){%>
-                <h6 class="col-lg-2 heading-small text-muted mb-4">Your resume</h6>
+                <h6 class="col-lg-2 heading-small text-muted mb-4">
+                  Your resume
+                </h6>
                 <div class="pl-lg-4">
-                <div class="d-flex mb-5">
-                <input type="text " class="col-6 form-control mr-2" value="https://resumevault.herokuapp.com/<%=user.username%>" id="myInput" readonly>
-                <button class="btn btn-info" onclick="myFunction()">Copy Link</button>
-                </div>
-                
-                  <div class=" mb-4 d-flex justify-content-center form-inline">
+                  <div class="d-flex mb-5">
+                    <input
+                      type="text "
+                      class="col-6 form-control mr-2"
+                      value="https://resumevault.herokuapp.com/<%=user.username%>"
+                      id="myInput"
+                      readonly
+                    />
+                    <button class="btn btn-info" onclick="myFunction()">
+                      Copy Link
+                    </button>
+                  </div>
+
+                  <div class="mb-4 d-flex justify-content-center form-inline">
                     <a href="/<%=user.email%>" target="_blank">
-                    <div>
-                      <div class="mb-4 d-flex justify-content-center">
-                      <i class="row fas fa-file-pdf fa-7x"></i>
-                    </div>
-                    <div class="row">
-                          <%=user.name%>.pdf
+                      <div>
+                        <div class="mb-4 d-flex justify-content-center">
+                          <i class="row fas fa-file-pdf fa-7x"></i>
                         </div>
+                        <div class="row"><%=user.name%>.pdf</div>
+                      </div>
+                    </a>
                   </div>
-                </a>
-                  </div>
-                  <button onclick="deleteResume()" class="mt-5 btn btn-danger">Delete Resume</button>
                 </div>
-                <hr class="my-4">
+                <hr class="my-4" />
                 <%}%>
-                <button class="mt-5 btn btn-danger">Delete profile</button>
-                
-<!-- if reume is there section end -->
-              
+
+                <!-- if reume is there section end -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/js-cookie/js.cookie.js"></script>
-  <script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-  <script src="/assets/js/argon.js?v=1.2.0"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script
+    <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/js-cookie/js.cookie.js"></script>
+    <script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <script src="/assets/js/argon.js?v=1.2.0"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
       integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
       crossorigin="anonymous"
     ></script>
-  <script>
-
-    function deleteResume(){
-      swal({
-        title:"Are you sure to delete",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then((value) => {
-        console.log(value);
-        if(value){
-          $.get("/delete",(data)=>{
-            swal({title:data.message}).then(()=>{
-              location.reload();
+    <script>
+      function deleteResume() {
+        swal({
+          title: "Are you sure to delete",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then((value) => {
+          console.log(value);
+          if (value) {
+            $.get("/delete", (data) => {
+              swal({ title: data.message }).then(() => {
+                location.reload();
+              });
             });
-          });
-        }
-      });
-    }  
-    
-    var form = document.querySelector("#fileUploadForm");
-    form.addEventListener("submit",(e)=>{
-      e.preventDefault();
-      form=$("#fileUploadForm")[0];
-      data=new FormData(form);
-      $.ajax({
-            type: "POST",
-            enctype: 'multipart/form-data',
-            url: "/upload",
-            data: data,
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-              if(data.upload){
-                swal({title:"Resume Uploaded successFully",icon:"success"}).then(()=>{
-                  location.reload();
-                });
-              }
-              else
-                swal({title:data.error,icon:"error"});
-              }
+          }
         });
-    });
-   
-</script>
-</body>
+      }
 
+      var form = document.querySelector("#fileUploadForm");
+      form.addEventListener("submit", (e) => {
+        $(this).children("button").prop("disabled", true);
+        e.preventDefault();
+        form = $("#fileUploadForm")[0];
+        data = new FormData(form);
+        $.ajax({
+          type: "POST",
+          enctype: "multipart/form-data",
+          url: "/upload",
+          data: data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          timeout: 600000,
+          success: function (data) {
+            if (data.upload) {
+              swal({
+                title: "Resume Uploaded successFully",
+                icon: "success",
+              }).then(() => {
+                location.reload();
+              });
+            } else swal({ title: data.error, icon: "error" });
+          },
+        });
+        $(this).children("button").prop("disabled", false);
+      });
+    </script>
+  </body>
 </html>
