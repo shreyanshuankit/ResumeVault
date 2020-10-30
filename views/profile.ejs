@@ -134,21 +134,10 @@
           button: "OK",
         });
       }
-      var upload = false;
       $(document).ready(function () {
         $("#modify").click(function () {
-          if ($("#upload").css("display") === "block") {
-            $("#upload").toggle("slow");
-            upload = true;
-          }
+          $("#upload").toggle("slow");
         });
-      });
-
-      $("body").click(function () {
-        if (upload) {
-          $("#langz").toggle(350);
-          upload = false;
-        }
       });
       $(document).ready(function () {
         $("#settings").click(function () {
