@@ -45,143 +45,144 @@
     ></script>
 
     <script>
-        // chnage username
-        function updateUserName(username) {
-          // console.log("this is data:"+data+"\nthis is status"+status);
-          // if(status){
-          //   document.getElementById("username").value = username;
-          //   msgalert(0);
-          // }
-          // else{
-          //   msgalert(1);
-          // }
-          // const email = e.target.elements.email.value;
-          data = { username: username };
-          $.post("/username", data, (data, status) => {
-            console.log(data);
-            if (data.status) {
-              document.getElementById("username").value = username;
+      // chnage username
+      function updateUserName(username) {
+        // console.log("this is data:"+data+"\nthis is status"+status);
+        // if(status){
+        //   document.getElementById("username").value = username;
+        //   msgalert(0);
+        // }
+        // else{
+        //   msgalert(1);
+        // }
+        // const email = e.target.elements.email.value;
+        data = { username: username };
+        $.post("/username", data, (data, status) => {
+          console.log(data);
+          if (data.status) {
+            document.getElementById("username").value = username;
+            swal({
+              title: "Success",
+              text: "Username updated",
+              icon: "success",
+              button: "OK",
+            });
+          } else {
+            swal({
+              title: "Can't update",
+              text: "Try using different username",
+              icon: "error",
+            });
+          }
+        });
+      }
+
+      function changeuser(val) {
+        if (val == 0) {
+          // after edit button is clicked
+
+          document.getElementById("username").readOnly = false;
+          document.getElementById("changebtn").style.display = "none";
+          document.getElementById("savechnage").style.display = "inline";
+        } else {
+          // after save button is clicked
+          var username = document.getElementById("username").value;
+          updateUserName(username);
+          document.getElementById("username").readOnly = true;
+          document.getElementById("changebtn").style.display = "inline";
+          document.getElementById("savechnage").style.display = "none";
+        }
+      }
+
+      function msgalert(val) {
+        if (val == 0) {
+          document.getElementById("usernamesection").innerHTML =
+            "<div id='usernamesection' class='alert alert-success alert-dismissible fade show mt-3' role='alert'> <strong>username updated!</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $("#usernamesection")
+            .fadeTo(2000, 500)
+            .slideUp(500, function () {
+              $("#usernamesection").slideUp(500);
+            });
+        } else {
+          document.getElementById("usernamesection").innerHTML =
+            "<div id='usernamesection' class='alert alert-danger alert-dismissible fade show mt-3' role='alert'> <strong>Use different username</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $("#usernamesection")
+            .fadeTo(2000, 500)
+            .slideUp(500, function () {
+              $("#usernamesection").slideUp(500);
+            });
+        }
+      }
+
+      function myFunction() {
+        /* Get the text field */
+        var copyText = document.getElementById("myInput");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+
+        swal({
+          title: "Success",
+          text: "Link copied",
+          icon: "success",
+          button: "OK",
+        });
+      }
+      var upload = false;
+      $(document).ready(function () {
+        $("#modify").click(function () {
+          if ($("#upload").css("display") === "block") {
+            $("#upload").toggle("slow");
+            upload = true;
+          }
+        });
+      });
+
+      $("body").click(function () {
+        if (upload) {
+          $("#langz").toggle(350);
+          upload = false;
+        }
+      });
+      $(document).ready(function () {
+        $("#settings").click(function () {
+          $("#deleteButton").toggle();
+          $("html, body").animate(
+            {
+              scrollTop: $("#deleteButton").offset().top,
+            },
+            2000
+          );
+        });
+        $("#deleteButton").click(function () {
+          swal({
+            title: "Are you sure?",
+            text:
+              "You will not be able to recover and no one can acess your resume using your link!",
+            icon: "warning",
+            buttons: ["No, cancel it!", "Yes, I am sure!"],
+            dangerMode: true,
+          }).then(function (isConfirm) {
+            if (isConfirm) {
               swal({
-                title: "Success",
-                text: "Username updated",
-                icon: "success",
-                button: "OK",
+                title: "Bye Bye",
+                text: "Hope to see you soon",
+                icon: "warning",
+              }).then(function () {
+                form.submit();
               });
             } else {
-              swal({
-                title: "Can't update",
-                text: "Try using different username",
-                icon: "error",
-              });
-            }
-          });
-        }
-
-        function changeuser(val) {
-          if (val == 0) {
-            // after edit button is clicked
-
-            document.getElementById("username").readOnly = false;
-            document.getElementById("changebtn").style.display = "none";
-            document.getElementById("savechnage").style.display = "inline";
-          } else {
-            // after save button is clicked
-            var username = document.getElementById("username").value;
-            updateUserName(username);
-            document.getElementById("username").readOnly = true;
-            document.getElementById("changebtn").style.display = "inline";
-            document.getElementById("savechnage").style.display = "none";
-          }
-        }
-
-        function msgalert(val) {
-          if (val == 0) {
-            document.getElementById("usernamesection").innerHTML =
-              "<div id='usernamesection' class='alert alert-success alert-dismissible fade show mt-3' role='alert'> <strong>username updated!</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $("#usernamesection")
-              .fadeTo(2000, 500)
-              .slideUp(500, function () {
-                $("#usernamesection").slideUp(500);
-              });
-          } else {
-            document.getElementById("usernamesection").innerHTML =
-              "<div id='usernamesection' class='alert alert-danger alert-dismissible fade show mt-3' role='alert'> <strong>Use different username</strong> <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-            $("#usernamesection")
-              .fadeTo(2000, 500)
-              .slideUp(500, function () {
-                $("#usernamesection").slideUp(500);
-              });
-          }
-        }
-
-        function myFunction() {
-          /* Get the text field */
-          var copyText = document.getElementById("myInput");
-
-          /* Select the text field */
-          copyText.select();
-          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-          /* Copy the text inside the text field */
-          document.execCommand("copy");
-
-          /* Alert the copied text */
-
-          swal({
-            title: "Success",
-            text: "Link copied",
-            icon: "success",
-            button: "OK",
-          });
-        }
-        var upload = false;
-        $(document).ready(function () {
-          $("#modify").click(function () {
-            if ($("#upload").css("display") === "block") {
-              $("#upload").toggle("slow");
-              upload = true
+              swal("Good", "Your resume is safe", "success");
             }
           });
         });
-
-        $("body").click(function(){
-      if (upload) {
-        $("#langz").toggle(350);
-        upload = false;
-      }
-        $(document).ready(function () {
-          $("#settings").click(function () {
-            $("#deleteButton").toggle();
-            $("html, body").animate(
-              {
-                scrollTop: $("#deleteButton").offset().top,
-              },
-              2000
-            );
-          });
-          $("#deleteButton").click(function () {
-            swal({
-              title: "Are you sure?",
-              text:
-                "You will not be able to recover and no one can acess your resume using your link!",
-              icon: "warning",
-              buttons: ["No, cancel it!", "Yes, I am sure!"],
-              dangerMode: true,
-            }).then(function (isConfirm) {
-              if (isConfirm) {
-                swal({
-                  title: "Bye Bye",
-                  text: "Hope to see you soon",
-                  icon: "warning",
-                }).then(function () {
-                  form.submit();
-                });
-              } else {
-                swal("Good", "Your resume is safe", "success");
-              }
-            });
-          });
-        });
+      });
     </script>
 
     <style>
