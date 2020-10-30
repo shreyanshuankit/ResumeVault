@@ -164,7 +164,10 @@
                 text: "Hope to see you soon",
                 icon: "warning",
               }).then(function () {
-                form.submit();
+                //form.submit();
+                $.get("/delete",()=>{
+                  window.location="/logout";
+                });
               });
             } else {
               swal("Good", "Your resume is safe", "success");
@@ -212,6 +215,7 @@
                     class="form-control"
                     placeholder="Search"
                     type="text"
+                    name="email"
                   />
                 </div>
               </div>
@@ -405,7 +409,7 @@
                           name="upload"
                           required
                         />
-                        <button class="btn btn-info" type="submit">
+                        <button class="btn btn-info" type="submit" id="uploadBtn">
                           Upload
                         </button>
                       </div>
@@ -498,6 +502,7 @@
       var form = document.querySelector("#fileUploadForm");
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        $("#uploadBtn").disabled=true;
         form = $("#fileUploadForm")[0];
         data = new FormData(form);
         $.ajax({
@@ -517,8 +522,27 @@
               }).then(() => {
                 location.reload();
               });
-            } else swal({ title: data.error, icon: "error" });
-          },
+            } else {
+              swal({ title: data.error, icon: "error" });
+              $("#uploadBtn").disabled=false;
+            }
+            },
+        });
+      });
+
+      var form1 = document.querySelector("#navbar-search-main");
+      form1.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = e.target.elements.email.value;
+        data = { email: email };
+        $.post("/findResume", data, (data, status) => {
+          console.log(data);
+          if (data.status) {
+            //window.location = `/${email}.pdf`;
+            window.open(`/${data.email}.pdf`, "_blank");
+          } else {
+            swal({ title: "Not Found", icon: "error" });
+          }
         });
       });
     </script>
