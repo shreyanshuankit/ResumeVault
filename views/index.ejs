@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://kit.fontawesome.com/e2723e486c.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/e2723e486c.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Resume Vault</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,7 +42,12 @@
             <div class="inner-form">
               <div class="input-field first-wrap">
                 <div class="svg-wrapper">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
                     ></path>
@@ -64,7 +72,7 @@
           <div>
             <h3>Easy to upload</h3>
             <p>
-              Login with your Google account and<br />
+              Login with your Google account<br />
               and upload your resume in no time
             </p>
           </div>
@@ -104,8 +112,11 @@
         <h2 class="mb-4">About Resume Vault</h2>
         <figure>
           <blockquote>
-            Resume Vault is a platform which is working towards providing a safe & easily accessible platform for storing and sharing professional resume by
-            providing them a short and precise link for there resume files which can easily be remembered and shared across various platforms.
+            Resume Vault is a platform which is working towards providing a safe
+            & easily accessible platform for storing and sharing professional
+            resume by providing them a short and precise link for their resume
+            files which can easily be remembered and shared across various
+            platforms.
           </blockquote>
           <footer>
             <!-- <cite class="author">Jane Anderson</cite>
@@ -124,7 +135,10 @@
 						</div> -->
           <div class="content">
             <h3>Purpose</h3>
-            <p>No more copy paste from your cloud storge which provide you those tedious url</p>
+            <p>
+              No more copy paste from your cloud storge which provide you those
+              tedious url
+            </p>
           </div>
         </div>
         <div class="flex-item box">
@@ -133,7 +147,9 @@
 						</div> -->
           <div class="content">
             <h3>Vision</h3>
-            <p>Creating a way out to store , share and memorize your link easily</p>
+            <p>
+              Creating a way out to store , share and memorize your link easily
+            </p>
           </div>
         </div>
         <div class="flex-item box">
@@ -142,7 +158,10 @@
 						</div> -->
           <div class="content">
             <h3>Mission</h3>
-            <p>To help people not to get confused with where to store their resume and how to share them</p>
+            <p>
+              To help people not to get confused with where to store their
+              resume and how to share them
+            </p>
           </div>
         </div>
       </div>
@@ -154,7 +173,9 @@
         <h2>Get In Touch</h2>
         <ul class="actions">
           <li>
-            <a href="//www.instagram.com/resumevault" target="_blank"><i class="fab fa-instagram"> resumeVault</i></a>
+            <a href="//www.instagram.com/resumevault" target="_blank"
+              ><i class="fab fa-instagram"> resumeVault</i></a
+            >
           </li>
           <!-- <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
 						<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li> -->
@@ -183,7 +204,8 @@
         $.post("/findResume", data, (data, status) => {
           console.log(data);
           if (data.status) {
-            window.location = `/${email}.pdf`;
+            // window.location = `/${email}.pdf`;
+            window.open("/${email}.pdf", "_blank");
           } else {
             swal({ title: "Not Found", icon: "error" });
           }

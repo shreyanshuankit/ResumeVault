@@ -265,10 +265,10 @@
                     <i class="ni ni-user-run"></i>
                     <span>Logout</span>
                   </a>
-                  <a id="settings" class="dropdown-item">
+                  <button id="settings" class="dropdown-item">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
-                  </a>
+                  </button>
                 </div>
               </li>
             </ul>
@@ -398,8 +398,9 @@
                     <form id="fileUploadForm">
                       <div class="d-flex mb-5">
                         <input
+                        style="overflow: hidden;"
                           type="file"
-                          class="col-6 mr-3"
+                          class="col-6 mr-3  form-control"
                           id="myfile"
                           name="upload"
                           required
@@ -409,12 +410,14 @@
                         </button>
                       </div>
                     </form>
+                    <%if(user.status){%>
                     <button
                       onclick="deleteResume()"
                       class="mt-5 btn btn-danger"
                     >
                       Delete Resume
                     </button>
+                    <%}%>
                     <hr class="my-4" />
                   </div>
                 </div>
@@ -453,8 +456,8 @@
                 </div>
                 <hr class="my-4" />
                 <%}%>
-
                 <!-- if reume is there section end -->
+              
               </div>
             </div>
           </div>
