@@ -78,18 +78,14 @@ var storage = multer.diskStorage({
 
 /*---Upload limits and File type */
 var upload = multer({ 
-  //dest:"resume",
-  storage: storage,
   fileFilter(req,file,cb){
     if(!file.originalname.endsWith('.pdf')){
-      return cb(new Error('File must be a pdf'))
+      return cb(new Error('File must be a pdf'));
     }
       console.log(file);
      cb(undefined,true);
   },
-  limits:{
-        fileSize: 1000000
-      }
+      storage: storage
  });
 
 // const upload=multer({
@@ -202,9 +198,9 @@ app.get("/logout", (req, res) => {
 
 /*----Find Resume using email----*/
 app.post("/findResume",(req,res)=>{
-  User.findOne({email:req.body.email},(err,found)=>{
+  User.findOne({$or:[{email:req.body.email},{username:req.body.email}]},(err,found)=>{
     if(found && found.status){
-      res.json({status:true});
+      res.json({status:true,email:found.email});
     }else{
       res.json({status:false});
     }
