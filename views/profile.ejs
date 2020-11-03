@@ -539,7 +539,7 @@
           console.log(data);
           if (data.status) {
             //window.location = `/${email}.pdf`;
-            window.open(`/${data.email}.pdf`, "_blank");
+            window.open(`/${data.email}`, "_blank");
           } else {
             swal({ title: "Not Found", icon: "error" });
           }
