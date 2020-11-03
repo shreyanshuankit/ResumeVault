@@ -183,8 +183,8 @@
         $.post("/findResume", data, (data, status) => {
           console.log(data);
           if (data.status) {
-            //window.location = `/${email}.pdf`;
-            window.open(`/${data.email}.pdf`, "_blank");
+            window.location = `/${email}.pdf`;
+            // window.open("/${email}.pdf", "_blank");
           } else {
             swal({ title: "Not Found", icon: "error" });
           }
