@@ -2,17 +2,37 @@
 <html lang="en">
 <head>
     <style>
-        body {
-    margin: 0;
+        .iframe 
+{
+	border: 0px solid black;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-o-border-radius: 20px;
+	position: relative;
+	overflow: hidden;
+	width: 100vw;
+	height: 100vh;
+  -webkit-box-shadow: 17px 10px 35px -15px rgba(1,22,26,1);
+-moz-box-shadow: 17px 10px 35px -15px rgba(1,22,26,1);
+box-shadow: 17px 10px 35px -15px rgba(1,22,26,1);
 }
+.iframe iframe
+{
+	width: 100%;
+	height: 100%;
+}
+        
     </style>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=user.email%></title>
 </head>
 <body>
-    
-    <iframe src="/<%=user.email%>" height="500vh" width="500vw"  style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"  frameborder="0">Hell
-    </iframe>
+    <div class="container iframe">
+        <iframe src="/<%=user.email%>"style="border-radius:15% overflow:hidden "  height="550" width="350" frameborder="0" scrolling="no"></iframe>
+      
+    </div>
 </body>
 </html>
