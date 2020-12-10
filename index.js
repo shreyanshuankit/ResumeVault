@@ -156,6 +156,7 @@ app.get("/profile", (req, res) => {
       res.redirect("/");
     }
 });
+<<<<<<< HEAD
 
 app.get("/preview", (req, res) => {
   if(req.isAuthenticated()){
@@ -165,6 +166,8 @@ app.get("/preview", (req, res) => {
     res.redirect("/");
   }
 });
+=======
+>>>>>>> parent of f9ec090... iframe
 
 // chnage username
 app.post("/username",(req,res)=>{
