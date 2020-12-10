@@ -156,18 +156,6 @@ app.get("/profile", (req, res) => {
       res.redirect("/");
     }
 });
-<<<<<<< HEAD
-
-app.get("/preview", (req, res) => {
-  if(req.isAuthenticated()){
-    //console.log(req.user);
-    res.render("preview",{user:req.user});
-  }else{
-    res.redirect("/");
-  }
-});
-=======
->>>>>>> parent of f9ec090... iframe
 
 // chnage username
 app.post("/username",(req,res)=>{
