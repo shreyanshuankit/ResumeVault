@@ -59,6 +59,13 @@
         data = { username: username };
         $.post("/username", data, (data, status) => {
           console.log(data);
+          window.swal({
+              title: "Updating...",
+              text: "Please wait",
+              imageUrl: "images/ajaxloader.gif",
+              showConfirmButton: false,
+              allowOutsideClick: false,
+            });
           if (data.status) {
             document.getElementById("username").value = username;
             swal({
@@ -67,6 +74,7 @@
               icon: "success",
               button: "OK",
             });
+            document.getElementById("myInput").value = 'https://resumevault.herokuapp.com'+username;
           } else {
             swal({
               title: "Can't update",
@@ -503,6 +511,13 @@
       var form = document.querySelector("#fileUploadForm");
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        window.swal({
+              title: "Uploading...",
+              text: "Please wait",
+              imageUrl: "images/ajaxloader.gif",
+              showConfirmButton: false,
+              allowOutsideClick: false,
+            });
         $("#uploadBtn").disabled=true;
         form = $("#fileUploadForm")[0];
         data = new FormData(form);
