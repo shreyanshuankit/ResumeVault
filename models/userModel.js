@@ -7,7 +7,12 @@ const userSchema = new mongoose.Schema({
   googleId: String,
   email: String,
   status:{type:Boolean,default:false},
-  username:String
+  username:String,
+  resume: 
+    { 
+        data: Buffer, 
+        contentType: String 
+    } 
 });
 
 userSchema.plugin(findOrCreate);

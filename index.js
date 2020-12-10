@@ -88,20 +88,6 @@ var upload = multer({
       storage: storage
  });
 
-// const upload=multer({
-//   dest:"resume",
-//   limits:{
-//     fileSize: 100000
-//   },
-//   fileFilter(req,file,cb){
-//     if(!file.originalname.endsWith('.pdf')){
-//       return cb(new Error('File must be a pdf'))
-//     }
-//       console.log(file);
-//      cb(undefined,true);
-//   }
-// })
-
 /*----some middleware----*/
 app.use(express.static("public"));
 app.use(express.static("uploads"));
@@ -188,13 +174,29 @@ app.post("/username",(req,res)=>{
 /*----Upload Resume----*/
 app.post("/upload",upload.single("upload"),(req,res)=>{
   User.findById(req.user.id,async(err,found)=>{
+    let resume={data: fs.readFileSync(__dirname + '/uploads/' + found.email+".pdf"), 
+            contentType: 'application/pdf'};
+    found.resume=resume;
     found.status=true;
     await found.save();
-    //req.flash("info", "Resume uploaded successfully");
     res.json({upload:true});
   });
 },(error,req,res,next)=>{
   res.json({upload:false,error:error.message});
+});
+
+/*----Delete Resume----*/
+app.get("/delete",(req,res)=>{
+  if(req.isAuthenticated()){
+    User.findById(req.user.id,async(err,found)=>{
+      found.status=false;
+      found.resume.data="";
+      await found.save();
+      res.json({message:"Resume Deleted Successfully"});
+    })
+  }else{
+    res.json({message:"Authentication Failed"});
+  }
 });
 
 /*----logout----*/
@@ -202,7 +204,6 @@ app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
-
 
 /*----Find Resume using email----*/
 app.post("/findResume",(req,res)=>{
@@ -215,33 +216,15 @@ app.post("/findResume",(req,res)=>{
   });
 });
 
-/*----Delete Resume----*/
-app.get("/delete",(req,res)=>{
-  if(req.isAuthenticated()){
-    const path = `uploads/${req.user.email}.pdf`;
-    fs.unlink(path, (err) => {
-      if (err) {
-        console.error(err);
-      }
-      User.findById(req.user.id,async(err,found)=>{
-        found.status=false;
-        await found.save();
-        res.json({message:"Resume Deleted Successfully"});
-      })
-    });
-  }else{
-    res.json({message:"Authentication Failed"});
-  }
-});
-
 /*----Find Resume using url----*/
 app.get("/:id",(req,res)=>{
-  console.log(req.params.id);
+  //console.log(req.params.id);
   User.findOne({$or:[{email:req.params.id},{username:req.params.id}]},(err,found)=>{
-    if(found){
-      res.redirect(`/${found.email}.pdf`)
+    if(found && found.status){
+      res.setHeader('content-type', 'application/pdf');
+      res.end(found.resume.data);
     }else{
-      res.send("Page Not Found");
+      res.render("error");
     }
   });
 });
