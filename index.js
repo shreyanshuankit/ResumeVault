@@ -22,7 +22,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://resumevault.herokuapp.com/auth/google/account",
+      callbackURL: "/auth/google/account",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -152,6 +152,14 @@ app.get("/profile", (req, res) => {
     if(req.isAuthenticated()){
       //console.log(req.user);
       res.render("profile",{user:req.user});
+    }else{
+      res.redirect("/");
+    }
+});
+app.get("/preview", (req, res) => {
+    if(req.isAuthenticated()){
+      //console.log(req.user);
+      res.render("preview",{user:req.user});
     }else{
       res.redirect("/");
     }
