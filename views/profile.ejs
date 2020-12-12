@@ -56,16 +56,16 @@
         //   msgalert(1);
         // }
         // const email = e.target.elements.email.value;
-        data = { username: username };
-        $.post("/username", data, (data, status) => {
-          console.log(data);
-          window.swal({
+        window.swal({
               title: "Updating...",
               text: "Please wait",
               imageUrl: "images/ajaxloader.gif",
               showConfirmButton: false,
               allowOutsideClick: false,
             });
+        data = { username: username };
+        $.post("/username", data, (data, status) => {
+          //console.log(data);
           if (data.status) {
             document.getElementById("username").value = username;
             swal({
