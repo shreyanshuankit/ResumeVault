@@ -14,7 +14,7 @@ const flash = require('connect-flash');
 /*----Database Connection URI----*/
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("DB connection successful!"));
+  .then(() => console.log("DB connection successfully!"));
 
 /*----Google Authentication URL----*/
 passport.use(
