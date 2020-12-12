@@ -27,6 +27,10 @@
       <ul class="actions vertical">
         <li><a href="/auth/google" class="button fit">Login</a></li>
       </ul>
+      <ul style="list-style-type:none;">
+      <li><a href="//www.instagram.com/resumevault"  target="_blank" class="button fit">Connect with us</a></li>
+      </ul>
+
     </nav>
 
     <!-- Banner -->
@@ -183,7 +187,7 @@
         $.post("/findResume", data, (data, status) => {
           console.log(data);
           if (data.status) {
-            window.location = `/${email}`;
+            window.open(`/${data.email}`, "_blank");
             // window.open("/${email}.pdf", "_blank");
           } else {
             swal({ title: "Not Found", icon: "error" });
